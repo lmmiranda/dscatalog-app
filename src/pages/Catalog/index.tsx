@@ -1,14 +1,16 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ProductCard from './components/ProductCard';
-import { doRequest } from '../../core/utils/request';
+import { doRequest } from 'core/utils/request';
 import './styles.scss'
-import { ProductPage } from '../../core/types/Product';
+import { ProductPage } from 'core/types/Product';
+import ProductCardLoader from './components/Loaders/ProductCardLoader';
 
 
 const Catalog = () => {
 
     const [productPage, setProductPage] = useState<ProductPage>();
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
 
@@ -17,8 +19,13 @@ const Catalog = () => {
             itemsPerPage: 12
         }
 
+        setIsLoading(true)
+
         doRequest({ path: '/products', params })
             .then(response => setProductPage(response.data))
+            .finally(() => {
+                setIsLoading(false)
+            });
     }, [])
 
     return (
@@ -28,11 +35,14 @@ const Catalog = () => {
         </h1>
 
             <div className="catolog-products">
-                {productPage?.content.map(product => (
-                    <Link to={`/products/${product.id}`} key={product.id}>
-                        <ProductCard product={product} />
-                    </Link>
-                ))}
+
+                {isLoading ? <ProductCardLoader /> : (
+
+                    productPage?.content.map(product => (
+                        <Link to={`/products/${product.id}`} key={product.id}>
+                            <ProductCard product={product} />
+                        </Link>)
+                    ))}
             </div>
         </div>
     );
