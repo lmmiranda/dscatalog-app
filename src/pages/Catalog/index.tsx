@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import ProductCard from './components/ProductCard'
 import './styles.scss'
 
@@ -8,11 +9,25 @@ const Catalog = () => (
         </h1>
 
         <div className="catolog-products">
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
+            <Link to="/products/1">
+                <ProductCard />
+            </Link>
+
+            <Link to="/products/2">
+                <ProductCard />
+            </Link>
+
+            <Link to="/products/3">
+                <ProductCard />
+            </Link>
+
+            <Link to="/products/4">
+                <ProductCard />
+            </Link>
+
+            <Link to="/products/5">
+                <ProductCard />
+            </Link>
         </div>
     </div>
 );
