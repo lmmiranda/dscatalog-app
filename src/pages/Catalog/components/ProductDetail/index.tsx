@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
-import { ReactComponent as ArrowIcon } from '../../../../core/assets/images/arrow.svg';
+import { ReactComponent as ArrowIcon } from 'core/assets/images/arrow.svg';
 import ProductPrice from 'core/components/ProductPrice';
 import { Product } from 'core/types/Product';
 import { doRequest } from 'core/utils/request';

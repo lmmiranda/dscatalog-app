@@ -5,18 +5,20 @@ import { doRequest } from 'core/utils/request';
 import './styles.scss'
 import { ProductPage } from 'core/types/Product';
 import ProductCardLoader from './components/Loaders/ProductCardLoader';
+import Pagination from 'core/components/Pagination';
 
 
 const Catalog = () => {
 
     const [productPage, setProductPage] = useState<ProductPage>();
     const [isLoading, setIsLoading] = useState(false);
+    const [activePage, setActivePage] = useState(0)
 
     useEffect(() => {
 
         const params = {
-            page: 0,
-            itemsPerPage: 12
+            page: activePage,
+            itemsPerPage: 10
         }
 
         setIsLoading(true)
@@ -26,7 +28,7 @@ const Catalog = () => {
             .finally(() => {
                 setIsLoading(false)
             });
-    }, [])
+    }, [activePage])
 
     return (
         <div className="catalog-container">
@@ -44,6 +46,14 @@ const Catalog = () => {
                         </Link>)
                     ))}
             </div>
+
+            {productPage && (
+                <Pagination
+                    activePage={activePage}
+                    totalPages={productPage.totalPages}
+                    onChange={activePage => setActivePage(activePage)}
+                />
+            )}
         </div>
     );
 };
